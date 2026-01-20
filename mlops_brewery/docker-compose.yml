@@ -1,0 +1,17 @@
+
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - mlflow
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.9.2
+    ports:
+      - "5000:5000"
+    command: mlflow ui --host 0.0.0.0
+    volumes:
+      - ./mlruns:/mlflow/mlruns
